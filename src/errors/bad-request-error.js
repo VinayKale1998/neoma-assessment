@@ -5,6 +5,7 @@ General bad request error
 
 export class BadRequestError extends CustomError {
   statusCode = 400;
+
   constructor(message = "Bad Request") {
     super(message);
 

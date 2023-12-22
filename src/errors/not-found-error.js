@@ -1,6 +1,6 @@
 import { CustomError } from "./custom-error.js";
 /*
-Error to be throw upon requesting an invalid route 
+Error to be thrown upon requesting an invalid route or something that is absent
 */
 export class NotFoundError extends CustomError {
   statusCode = 404;

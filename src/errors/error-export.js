@@ -1,3 +1,5 @@
+//acts a single export point for all the errors
+
 export * from "./authentication-error.js";
 export * from "./bad-request-error.js";
 export * from "./custom-error.js";

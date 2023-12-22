@@ -1,12 +1,13 @@
 import { CustomError } from "./custom-error.js";
 
 /*
-General bad request error 
+database connection error for errors during db interactions
 */
 
 export class DatabaseConnectionError extends CustomError {
   message = "Error connecting to the DB";
   statusCode = 500;
+
   constructor(message = "Unable to connect to the DB") {
     super(message);
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);

@@ -4,6 +4,8 @@
 
 Welcome to our Social Media Platform, a robust and user-friendly Node.js application designed for dynamic social interactions and content management. This application, built with Node.js, Express.js, and MongoDB, offers a comprehensive arrau of features for an engaging social media experience.
 
+## Sincere apologies for the delayed installation , but it comes at the benefit of not having to worry about secrets, env dependency and key exposure
+
 ## Key Features
 
 ### User Authentication
