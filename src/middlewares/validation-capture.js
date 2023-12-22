@@ -14,7 +14,6 @@ const validationCapture = (req, res, next) => {
 
   // throwing an error if errors are present
   if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
-
   next();
 };
 
