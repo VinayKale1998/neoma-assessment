@@ -219,6 +219,9 @@ export const openApiSpec = {
           },
         },
       },
+    },
+    "/api/v1/users/unfollow": {
+      // Specify the custom route path for Unfollow User
       delete: {
         summary: "Unfollow User",
         description: "Unfollows a user.",
