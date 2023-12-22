@@ -11,7 +11,10 @@ import { logoutRouter } from "./routes/logout.js";
 import { currentUserRouter } from "./routes/current-user.js";
 import cookieSession from "cookie-session";
 import mongoose from "mongoose";
-import { CustomError, InternalServerError } from "./errors/error-export.js";
+import { currentUser } from "./middlewares/current-user.js";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import { postsRouter } from "./routes/posts.js";
+import { followRouter } from "./routes/follow.js";
 
 //Intitializing dotenv to load env. variables from the .env file into process.env
 dotenv.config();
@@ -23,14 +26,15 @@ app.use(express.json());
 app.use(cors());
 
 //setting ip and protocol trusts to allow client IP to be monitored for rate limiting
-app.set("trust proxy", true);
+app.set("trust proxy", false);
 
 //setting up the cookie session
 //secure will be disabled in test as tests will be executed via http
 app.use(
   cookieSession({
     signed: false,
-    //secure set to false for development
+    httpOnly: true,
+    //secure set to false for prod server
     secure: false,
   })
 );
@@ -41,19 +45,28 @@ const limiter = rateLimit({
   max: 100,
 });
 
+//connecting to an in inmemory mongodb to avoid external dependency for running the app
+//kindly pardon the increased installation time due to the mongodb-memory-server package
 try {
-  await mongoose.connect(process.env.MONGO_URI);
+  const mongo = await MongoMemoryServer.create();
+  const MONGO_URI = mongo.getUri();
+  await mongoose.connect(MONGO_URI, {});
+  console.log("Connected to mongoDB");
 } catch (err) {
-  throw err.message;
+  throw err;
 }
 
 app.use(limiter);
 
+// currentuser will always be checked against the session cookie but the endpoint access decision will be taken at the routes using requireAuth middelware
+app.use(currentUser);
 //using routes
 app.use(signupRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
 app.use(currentUserRouter);
+app.use(postsRouter);
+app.use(followRouter);
 
 app.all("*", (req, res) => {
   /* 
@@ -66,7 +79,7 @@ for all http methods
 //errors throw by all the above routes will be handled
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 //listening to the app
 
 app

@@ -1,28 +1,17 @@
-//modules
 import express from "express";
-import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-//errors
-import {
-  RequestValidationError,
-  AuthenticationError,
-} from "../errors/error-export.js";
-//models
+import { AuthenticationError } from "../errors/error-export.js";
 import { User } from "../models/user-model.js";
-//middlewares
 import { validationCapture } from "../middlewares/validation-capture.js";
 import { Password } from "../services/password.js";
+import { loginValidatonCriteria } from "../helpers/vaidation-criterias.js";
 
 const loginRouter = express.Router();
-
-const validatonCriteria = [
-  body("email").isEmail().withMessage("Email invalid"),
-  body("password").not().isEmpty(),
-];
+process.env.JWT_SECRET = "SOCIAL";
 
 loginRouter.post(
   "/api/v1/users/login",
-  validatonCriteria,
+  loginValidatonCriteria,
   validationCapture,
   async (req, res, next) => {
     const { email, password } = req.body;
@@ -36,14 +25,13 @@ loginRouter.post(
         throw new AuthenticationError("Email not registered, please signup");
 
       //else
-      if (!Password.compare(existingUser.password, password)) {
-        console.log(Password.compare(existingUser.password, password));
+      if (!Password.compare(existingUser.password, password.trim())) {
         throw new AuthenticationError("Password Invalid");
       }
 
       //else
       const userJWT = jwt.sign(
-        { id: existingUser._id, email: existingUser.email },
+        { _id: existingUser._id, email: existingUser.email },
         process.env.JWT_SECRET
       );
 

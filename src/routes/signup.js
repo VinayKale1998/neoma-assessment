@@ -1,26 +1,13 @@
 //modules
 import express from "express";
-
 import { body } from "express-validator";
-//errors
-import {
-  BadRequestError,
-  InternalServerError,
-  CustomError,
-} from "../errors/error-export.js";
-//models
+import { BadRequestError } from "../errors/error-export.js";
 import { User } from "../models/user-model.js";
-//middlewares
 import { validationCapture } from "../middlewares/validation-capture.js";
-
+import { singupValidatonCriteria } from "../helpers/vaidation-criterias.js";
 const signupRouter = express.Router();
 
 //validation criteria to be passed as the first middleware followed by validation capturing middleware
-const validatonCriteria = [
-  body("email").isEmail().withMessage("Email invalid"),
-  body("password").isLength({ min: 4, max: 12 }),
-  body("username").isLength({ min: 3, max: 12 }),
-];
 
 /* Singup route 
 Validates user request to check email and password sanity,
@@ -29,7 +16,7 @@ saves user into the collection
 */
 signupRouter.post(
   "/api/v1/users/signup",
-  validatonCriteria,
+  singupValidatonCriteria,
   validationCapture,
   async (req, res, next) => {
     req.session = null;
