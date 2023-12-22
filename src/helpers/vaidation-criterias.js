@@ -54,3 +54,7 @@ export const singupValidatonCriteria = [
   body("password").isLength({ min: 4, max: 12 }),
   body("username").isLength({ min: 3, max: 12 }),
 ];
+
+export const followValidationCriteria = [
+  body("userId").not().isEmpty().withMessage("Invalid userId"),
+];

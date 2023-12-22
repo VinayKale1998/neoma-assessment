@@ -9,12 +9,21 @@ import {
   updatePostValidationCriteria,
   deletePostValidationCriteria,
 } from "../helpers/vaidation-criterias.js";
-const postsRouter = express.Router();
-// <----------------------------------------------------create post---------------------------------------------------------------------->
+
 /*
-post will be used to create posts by an authenticated, user,          
-request validation will be done to validate the post details 
+router implementations
+
+post-create
+post-update
+post-delete
+posts-get
+posts-getAll
+
 */
+
+const postsRouter = express.Router();
+
+// <----------------------------------------------------create post---------------------------------------------------------------------->
 postsRouter.post(
   "/api/v1/posts/",
   createPostValidationCriteria,
@@ -22,9 +31,9 @@ postsRouter.post(
   requireAuth,
   async (req, res, next) => {
     /*
-    by this point, the validation criteria and validation capture middlewares would've check for request sanity and would've throw an error if necessary
-    and currentUser  middleware would've set the currentUser if the jwt in the session cookie is valid and present
-    requieAuth would've  thrown an Auth error if currentUser was undefined, because this is an auth secured route
+    by this point, the validation criteria and validation capture middlewares would've checked for request sanity and would've throw an error if necessary
+    and currentUser  middleware would've set the currentUser if the jwt in the session cookie is valid and present,
+    requieAuth middleware would've  thrown an Auth error if currentUser was undefined, making this an auth secured route
     */
 
     const { _id } = req.currentUser;
@@ -51,13 +60,13 @@ postsRouter.put(
     /*
       by this point, the validation criteria and validation capture middlewares would've check for request sanity and would've throw an error if necessary
       and currentUser  middleware would've set the currentUser if the jwt in the session cookie is valid and present
-      requieAuth would've  thrown an Auth error if currentUser was undefined, because this is an auth secured route
+      requieAuth would've  thrown an Auth error if currentUser was undefined, making this an auth secured route
       */
 
     const { _id } = req.currentUser;
 
     //At this point from the validation criteria above, we know that we will definitely have a valid title or description or both
-    //which is present and which is absent or if both are present will be checked after author match
+    //which is present and which is absent or if both are present, will be checked after author match
     const { postId, title, description } = req.body;
 
     try {
@@ -81,6 +90,8 @@ postsRouter.put(
             description,
           });
         }
+
+        //save and responsd
         await post.save();
         res.send(post);
       }
@@ -89,6 +100,7 @@ postsRouter.put(
     }
   }
 );
+
 // <----------------------------------------------------delete post---------------------------------------------------------------------->
 postsRouter.delete(
   "/api/v1/posts/",
@@ -112,6 +124,7 @@ postsRouter.delete(
       if (post.author.toString() === _id) {
         //if it's a match then we go ahead and delete the post
 
+        //delete and respond with deletion status
         const deleted = await post.deleteOne();
         return res.send({ deleted });
       }
@@ -120,8 +133,8 @@ postsRouter.delete(
     }
   }
 );
-//// <----------------------------------------------------get posts---------------------------------------------------------------------->
 
+//// <----------------------------------------------------get posts---------------------------------------------------------------------->
 /*
 the user shall be authenticated for this as we are retrieving posts created only by other users 
 */

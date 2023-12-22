@@ -14,6 +14,7 @@ import mongoose from "mongoose";
 import { currentUser } from "./middlewares/current-user.js";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { postsRouter } from "./routes/posts.js";
+import { followRouter } from "./routes/follow.js";
 
 //Intitializing dotenv to load env. variables from the .env file into process.env
 dotenv.config();
@@ -65,6 +66,7 @@ app.use(loginRouter);
 app.use(logoutRouter);
 app.use(currentUserRouter);
 app.use(postsRouter);
+app.use(followRouter);
 
 app.all("*", (req, res) => {
   /* 
