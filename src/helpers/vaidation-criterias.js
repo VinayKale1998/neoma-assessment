@@ -41,6 +41,14 @@ export const updatePostValidationCriteria = [
     .trim()
     .isLength({ min: 12 }),
 ];
+
+export const deletePostValidationCriteria = [
+  body("postId")
+    .isString()
+    .withMessage("Invalid postId")
+    .trim()
+    .isLength({ min: 12 }),
+];
 export const singupValidatonCriteria = [
   body("email").isEmail().withMessage("Email invalid"),
   body("password").isLength({ min: 4, max: 12 }),

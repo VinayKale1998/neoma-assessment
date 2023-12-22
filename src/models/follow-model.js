@@ -11,9 +11,9 @@ userSchema amounting to a document structure as below
 */
 const followSchema = new Schema({
   follower: { type: Schema.Types.ObjectId, ref: "User" },
-  follwing: { type: Schema.Types.ObjectId, ref: "User" },
+  following: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-const Follow = monogoose.model("Follow", followSchema);
+const Follow = mongoose.model("Follow", followSchema);
 
 export { Follow };
