@@ -4,7 +4,6 @@ import { signupRouter } from "./routes/signup.js";
 import { NotFoundError } from "./errors/not-found-error.js";
 import { loginRouter } from "./routes/login.js";
 import { logoutRouter } from "./routes/logout.js";
-import { currentUserRouter } from "./routes/current-user.js";
 import { currentUser } from "./middlewares/current-user.js";
 import { postsRouter } from "./routes/posts.js";
 import { followRouter } from "./routes/follow.js";
@@ -22,7 +21,6 @@ app.use(currentUser); // currentuser will always be checked against the session 
 app.use(signupRouter);
 app.use(loginRouter);
 app.use(logoutRouter);
-app.use(currentUserRouter);
 app.use(postsRouter);
 app.use(followRouter);
 

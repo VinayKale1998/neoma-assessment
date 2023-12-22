@@ -1,7 +1,7 @@
 import { CustomError } from "./custom-error.js";
 
 /*
-General bad request error 
+  Internal Server Error thrown to handle any irregular circumstance
 */
 
 export class InternalServerError extends CustomError {
