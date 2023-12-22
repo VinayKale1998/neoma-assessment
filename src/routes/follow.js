@@ -1,7 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middlewares/require-auth.js";
 import { Follow } from "../models/follow-model.js";
-import { body } from "express-validator";
 import { validationCapture } from "../middlewares/validation-capture.js";
 import { followValidationCriteria } from "../helpers/vaidation-criterias.js";
 import { NotFoundError } from "../errors/not-found-error.js";

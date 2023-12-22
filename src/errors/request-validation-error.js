@@ -1,6 +1,6 @@
 import { CustomError } from "./custom-error.js";
 /*
-Error to be throw upon discrepancies in the the request 
+Error to be thrown upon discrepancies in the the request 
 */
 
 export class RequestValidationError extends CustomError {

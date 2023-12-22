@@ -1,6 +1,5 @@
 //modules
 import express from "express";
-import { body } from "express-validator";
 import { BadRequestError } from "../errors/error-export.js";
 import { User } from "../models/user-model.js";
 import { validationCapture } from "../middlewares/validation-capture.js";
