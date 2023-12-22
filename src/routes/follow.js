@@ -33,8 +33,6 @@ followRouter.post(
     //user to be followed
     const { userId } = req.body;
 
-    console.log(_id, userId);
-
     try {
       const follow = new Follow({ follower: _id, following: userId });
       await follow.save();
@@ -82,7 +80,7 @@ followRouter.delete(
   }
 );
 
-//<-----------------------------------follwers----------------------------------------------------------->
+//<-----------------------------------followers----------------------------------------------------------->
 followRouter.get("/api/v1/users/followers", requireAuth, async (req, res) => {
   // Find Follow documents where the current user is being followed
 
