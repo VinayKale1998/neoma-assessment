@@ -1,16 +1,8 @@
 //modules
 import express from "express";
-
 import { body } from "express-validator";
-//errors
-import {
-  BadRequestError,
-  InternalServerError,
-  CustomError,
-} from "../errors/error-export.js";
-//models
+import { BadRequestError } from "../errors/error-export.js";
 import { User } from "../models/user-model.js";
-//middlewares
 import { validationCapture } from "../middlewares/validation-capture.js";
 
 const signupRouter = express.Router();

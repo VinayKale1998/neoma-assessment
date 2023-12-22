@@ -1,15 +1,8 @@
-//modules
 import express from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-//errors
-import {
-  RequestValidationError,
-  AuthenticationError,
-} from "../errors/error-export.js";
-//models
+import { AuthenticationError } from "../errors/error-export.js";
 import { User } from "../models/user-model.js";
-//middlewares
 import { validationCapture } from "../middlewares/validation-capture.js";
 import { Password } from "../services/password.js";
 

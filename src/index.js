@@ -11,7 +11,7 @@ import { logoutRouter } from "./routes/logout.js";
 import { currentUserRouter } from "./routes/current-user.js";
 import cookieSession from "cookie-session";
 import mongoose from "mongoose";
-import { CustomError, InternalServerError } from "./errors/error-export.js";
+import { currentUser } from "./middlewares/current-user.js";
 
 //Intitializing dotenv to load env. variables from the .env file into process.env
 dotenv.config();
@@ -49,6 +49,8 @@ try {
 
 app.use(limiter);
 
+// currentuser will always be checked against the session cookie but the api access decision will be taken in the routes using requireAuth middelware
+app.use(currentUser);
 //using routes
 app.use(signupRouter);
 app.use(loginRouter);
