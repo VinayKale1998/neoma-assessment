@@ -32,6 +32,6 @@ mainApp
   })
   .on("error", (err) => {
     //consoling the error if there is an error on startup
-    console.err(err);
+    console.error(err);
     process.exit(0);
   });
