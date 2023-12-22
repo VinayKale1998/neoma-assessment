@@ -1,5 +1,4 @@
 import express from "express";
-import { currentUser } from "../middlewares/current-user.js";
 import { requireAuth } from "../middlewares/require-auth.js";
 import { validationCapture } from "../middlewares/validation-capture.js";
 import { Post } from "../models/post-model.js";

@@ -1,5 +1,7 @@
 import { body, oneOf } from "express-validator";
 
+/// input validation criterias for routes in the routehandlers
+
 export const loginValidatonCriteria = [
   body("email").isEmail().withMessage("Email invalid"),
   body("password").not().isEmpty(),
@@ -49,6 +51,7 @@ export const deletePostValidationCriteria = [
     .trim()
     .isLength({ min: 12 }),
 ];
+
 export const singupValidatonCriteria = [
   body("email").isEmail().withMessage("Email invalid"),
   body("password").isLength({ min: 4, max: 12 }),

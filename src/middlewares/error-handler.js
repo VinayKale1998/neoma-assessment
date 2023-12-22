@@ -2,7 +2,8 @@ import { CustomError } from "../errors/custom-error.js";
 
 const errorHandler = (err, req, res, next) => {
   /*
-the custom  errors thrown from the route handlers will be caught
+ this middlewares catches the custom  errors thrown from the route handlers
+a pertinent response will be sent to the client
 */
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });

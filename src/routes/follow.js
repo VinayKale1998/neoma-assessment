@@ -82,7 +82,7 @@ followRouter.delete(
   }
 );
 
-//<-----------------------------------follwers----------------------------------------------------------->
+//<-----------------------------------followers----------------------------------------------------------->
 followRouter.get("/api/v1/users/followers", requireAuth, async (req, res) => {
   // Find Follow documents where the current user is being followed
 
