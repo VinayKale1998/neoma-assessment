@@ -39,8 +39,6 @@ loginRouter.post(
         jwt: userJWT,
       };
 
-      console.log(req.session);
-
       return res.status(200).send(existingUser);
     } catch (err) {
       throw err;

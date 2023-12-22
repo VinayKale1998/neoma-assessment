@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to our Social Media Platform, a robust and user-friendly Node.js application designed for dynamic social interactions and content management. This application, built with Node.js, Express.js, and MongoDB, offers a comprehensive suite of features tailored for an engaging social media experience.
+Welcome to our Social Media Platform, a robust and user-friendly Node.js application designed for dynamic social interactions and content management. This application, built with Node.js, Express.js, and MongoDB, offers a comprehensive arrau of features for an engaging social media experience.
 
 ## Key Features
 
@@ -12,7 +12,7 @@ Secure signup, signin, and signout processes implemented with JSON Web Token (JW
 
 ### Posts Management
 
-Users can effortlessly create, update, delete, and fetch posts. This feature allows for a vibrant user-generated content experience, essential in modern social media applications.
+Users can effortlessly create, update, delete, and fetch posts. These features allow for the agility required for modern user experience.
 
 ### User Relationships (Follow | Unfollow )
 
@@ -64,7 +64,9 @@ Getting the project up and running on your local machine is straightforward and 
 
 ## Configuration
 
-The application is designed to be simple and straightforward, with minimal configuration needed. Once you have completed the installation steps, the application is configured and ready to run. There are no additional environment variables or external setup requirements to worry about.
+- **No `.env` Files or External Secrets**: To keep the setup process as straightforward as possible, I've avoided the use of `.env` files or external secret management. This decision helps in reducing setup complexity and eliminates the need for additional dependency management.
+
+- The application is designed to be simple and straightforward, with minimal configuration needed. Once you have completed the installation steps, the application is configured and ready to run. There are no additional environment variables or external setup requirements to worry about.
 
 clone, install, and you’re all set to start using the application.
 
@@ -83,6 +85,8 @@ After installing the application, getting it up and running is just a matter of 
 
 ## API Documentation
 
+Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) for the interactive Swagger documentation of this project. It provides comprehensive info about the endpoints, request and error details.
+
 ## Testing
 
 ## Contact Information
@@ -93,6 +97,6 @@ If you have any questions, feedback, feel free to reach out to me. Your input an
 
 - **Phone**: For any additional info or questions, kindly contact me at +91-7975065148 - Vinay
 
-- **LinkedIn**: Connect with me on LinkedIn, Here's my profile: [www.linkedin.com/in/vinay-raghavendra](www.linkedin.com/in/vinay-raghavendra).
+- **LinkedIn**: Connect with me on LinkedIn, Here's my profile: [www.linkedin.com/in/vinay-raghavendra](www.linkedin.com/in/vinay-raghavendra)
 
 Thanks for your time

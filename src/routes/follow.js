@@ -33,8 +33,6 @@ followRouter.post(
     //user to be followed
     const { userId } = req.body;
 
-    console.log(_id, userId);
-
     try {
       const follow = new Follow({ follower: _id, following: userId });
       await follow.save();

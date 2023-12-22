@@ -8,32 +8,16 @@ export const loginValidatonCriteria = [
 ];
 
 export const createPostValidationCriteria = [
-  body("title")
-    .isString()
-    .withMessage("Invalid Title")
-    .trim()
-    .isLength({ min: 4, max: 30 }),
-  body("description")
-    .isString()
-    .withMessage("Invalid description")
-    .trim()
-    .isLength({ min: 10, max: 100 }),
+  body("title").trim().isLength({ min: 4, max: 30 }),
+  body("description").trim().isLength({ min: 5, max: 100 }),
 ];
 
 export const updatePostValidationCriteria = [
   //either title or description should be present for updation of the post
   oneOf(
     [
-      body("title")
-        .isString()
-        .withMessage("Invalid Title")
-        .trim()
-        .isLength({ min: 4, max: 30 }),
-      body("description")
-        .isString()
-        .withMessage("Invalid Description")
-        .trim()
-        .isLength({ min: 10, max: 100 }),
+      body("title").trim().isLength({ min: 4, max: 30 }),
+      body("description").trim().isLength({ min: 5, max: 100 }),
     ],
     "Either title or description must be provided"
   ),
