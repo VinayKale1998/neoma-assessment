@@ -91,6 +91,8 @@ Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) after suc
 
 ## Testing
 
+- Test implementation done with jest and supertest for the signup endpoint.
+
 ## Contact Information
 
 If you have any questions, feedback, feel free to reach out to me. Your input and contributions are highly appreciated!
