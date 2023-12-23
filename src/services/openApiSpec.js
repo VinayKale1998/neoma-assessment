@@ -1,3 +1,7 @@
+/*
+Comprises the openAPI specifications for the endpoints in the app
+*/
+
 export const openApiSpec = {
   openapi: "3.0.0",
   info: {
@@ -11,6 +15,7 @@ export const openApiSpec = {
     },
   ],
   paths: {
+    // will allow users with unique usernames and email to register along with a valid password
     "/api/v1/users/signup": {
       post: {
         summary: "User Signup",
@@ -45,6 +50,7 @@ export const openApiSpec = {
       },
     },
     "/api/v1/users/login": {
+      // will allow users with valid email and corresponding valid password to login and provide an auth token as a cookie
       post: {
         summary: "User Login",
         description: "Authenticates a user and returns a JWT token.",
@@ -221,7 +227,8 @@ export const openApiSpec = {
       },
     },
     "/api/v1/users/unfollow": {
-      // Specify the custom route path for Unfollow User
+      // Specifying the custom route path for Unfollow User
+      // will allow users to delete the follow object where the current user is the follower
       delete: {
         summary: "Unfollow User",
         description: "Unfollows a user.",

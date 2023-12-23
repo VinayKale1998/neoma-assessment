@@ -8,16 +8,17 @@ import {
   updatePostValidationCriteria,
   deletePostValidationCriteria,
 } from "../helpers/vaidation-criterias.js";
+import { currentUser } from "../middlewares/current-user.js";
 
 /*
-router implementations
+    router implementations
 
-post-create
-post-update
-post-delete
-posts-get
-posts-getAll
-
+    post-create
+    post-update
+    post-delete
+    posts-get (get posts other than the current user's)
+    posts-getAll
+    Allows authenticated clients to create posts, upadate their posts, delete their posts, and fetch posts
 */
 
 const postsRouter = express.Router();
@@ -26,6 +27,7 @@ const postsRouter = express.Router();
 postsRouter.post(
   "/api/v1/posts/",
   createPostValidationCriteria,
+  currentUser,
   validationCapture,
   requireAuth,
   async (req, res, next) => {
@@ -54,6 +56,7 @@ postsRouter.put(
   "/api/v1/posts/",
   updatePostValidationCriteria,
   validationCapture,
+  currentUser,
   requireAuth,
   async (req, res, next) => {
     /*
@@ -105,6 +108,7 @@ postsRouter.delete(
   "/api/v1/posts/",
   deletePostValidationCriteria,
   validationCapture,
+  currentUser,
   requireAuth,
   async (req, res, next) => {
     /*
@@ -137,35 +141,40 @@ postsRouter.delete(
 /*
 the user shall be authenticated for this as we are retrieving posts created only by other users 
 */
-postsRouter.get("/api/v1/posts/", requireAuth, async (req, res) => {
-  //extracting the authenticated user Id
-  const { _id } = req.currentUser;
-  try {
-    //fetching  posts of others  but limiting the user population to only _id and username from the User document with populate
-    const posts = await Post.find({ author: { $ne: _id } })
-      .limit(100)
-      .populate({ path: "author", select: "_id username" })
-      .exec();
+postsRouter.get(
+  "/api/v1/posts/",
+  currentUser,
+  requireAuth,
+  async (req, res) => {
+    //extracting the authenticated user Id
+    const { _id } = req.currentUser;
+    try {
+      //fetching  posts of others  but limiting the user population to only _id and username from the User document with populate options
+      const posts = await Post.find({ author: { $ne: _id } })
+        .limit(100)
+        .populate({ path: "author", select: "_id username" })
+        .exec();
 
-    if (posts.length === 0) return res.send({ posts: [] });
-    else return res.send({ posts });
-  } catch (err) {
-    throw err;
+      if (posts.length === 0) return res.send({ posts: [] });
+      else return res.send({ posts });
+    } catch (err) {
+      throw err;
+    }
   }
-});
+);
 
 // <----------------------------------------------------get all posts---------------------------------------------------------------------->
 postsRouter.get("/api/v1/posts/global", async (req, res) => {
   //retrieving all posts
   try {
-    //fetching all posts but limiting the user population to only _id and username from the User document with populate
-    const posts = await Post.find()
+    //fetching all posts but limiting the user population to only _id and username from the User document with populate options
+    const posts = await Post.find({})
       .limit(100)
       .populate({ path: "author", select: "_id username" })
       .exec();
 
-    if (posts.length === 0) return res.send({ posts: [] });
-    else return res.send({ posts });
+    // posts will either be an empty array or array of posts
+    return res.send({ posts });
   } catch (err) {
     throw err;
   }

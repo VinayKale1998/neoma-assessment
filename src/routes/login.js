@@ -7,8 +7,11 @@ import { Password } from "../services/password.js";
 import { loginValidatonCriteria } from "../helpers/vaidation-criterias.js";
 
 const loginRouter = express.Router();
-process.env.JWT_SECRET = "SOCIAL";
 
+/* this route validate the email validitiy, password correctness ,
+      If validtation is posistive, generates a jwt token,
+      sets the jwt token in the session object to allow for cookies
+      */
 loginRouter.post(
   "/api/v1/users/login",
   loginValidatonCriteria,
@@ -30,6 +33,8 @@ loginRouter.post(
       }
 
       //else
+
+      process.env.JWT_SECRET = "SOCIAL"; //hard-coding to avoid .env dependency
       const userJWT = jwt.sign(
         { _id: existingUser._id, email: existingUser.email },
         process.env.JWT_SECRET

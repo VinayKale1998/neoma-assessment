@@ -8,7 +8,7 @@ import { app } from "./app.js";
 const mainApp = express();
 
 mainApp.use(app);
-//connecting to an in inmemory mongodb to avoid external dependency for running the app
+//connecting to an in in-memory mongodb to avoid external dependency for running the app
 //kindly pardon the increased installation time due to the mongodb-memory-server package
 try {
   const mongo = await MongoMemoryServer.create();
@@ -16,15 +16,10 @@ try {
   await mongoose.connect(MONGO_URI, {});
   console.log("Connected to mongoDB");
 } catch (err) {
-  throw err;
+  console.log("Unable to connect to the MongoDB server");
 }
 
-//errors thrown in the app will be caught here
-mainApp.use(errorHandler);
-
 const PORT = 3000;
-//errors throw by all the above routes will be handled
-mainApp.use(errorHandler);
 //listening to a port
 mainApp
   .listen(PORT, () => {

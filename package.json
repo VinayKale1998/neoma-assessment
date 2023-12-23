@@ -5,7 +5,13 @@
   "main": "srr/index.js",
   "type": "module",
   "scripts": {
+    "test": "jest --detectOpenHandles --watchAll --no-cache",
     "start": "nodemon src/index.js"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/test/setup.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -27,5 +33,10 @@
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "babel-jest": "^29.7.0"
   }
 }
