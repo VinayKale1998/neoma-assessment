@@ -91,7 +91,8 @@ Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) after suc
 
 ## Testing
 
-- Test implementation done with jest and supertest for the signup endpoint.
+- Test implementation done with jest and supertest for the signup endpoint
+- After sucessfull cloning and installation,run this command in the root directory of the app: npm test
 
 ## Contact Information
 

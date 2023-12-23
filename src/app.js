@@ -36,7 +36,4 @@ app.all("*", (req, res) => {
 //errors thrown in the app will be caught here
 app.use(errorHandler);
 
-//errors throw by all the above routes will be handled
-app.use(errorHandler);
-
 export { app };
