@@ -4,6 +4,7 @@ import { Follow } from "../models/follow-model.js";
 import { validationCapture } from "../middlewares/validation-capture.js";
 import { followValidationCriteria } from "../helpers/vaidation-criterias.js";
 import { NotFoundError } from "../errors/not-found-error.js";
+import { currentUser } from "../middlewares/current-user.js";
 const followRouter = express.Router();
 
 /*
@@ -22,6 +23,7 @@ get-following
 
 followRouter.post(
   "/api/v1/users/follow",
+  currentUser,
   requireAuth,
   followValidationCriteria,
   validationCapture,
@@ -48,6 +50,7 @@ followRouter.post(
 
 followRouter.delete(
   "/api/v1/users/unfollow",
+  currentUser,
   requireAuth,
   followValidationCriteria,
   validationCapture,
@@ -80,58 +83,68 @@ followRouter.delete(
 );
 
 //<-----------------------------------followers----------------------------------------------------------->
-followRouter.get("/api/v1/users/followers", requireAuth, async (req, res) => {
-  // Find Follow documents where the current user is being followed
+followRouter.get(
+  "/api/v1/users/followers",
+  currentUser,
+  requireAuth,
+  async (req, res) => {
+    // Find Follow documents where the current user is being followed
 
-  //authenticated user
-  const { _id } = req.currentUser;
+    //authenticated user
+    const { _id } = req.currentUser;
 
-  try {
-    //serach for followers and populating with appropriate data to be returned
-    const followers = await Follow.find({ following: _id })
-      .populate({
-        path: "follower",
-        select: "_id username",
-      })
-      .select("follower -_id") // Select only the follower field and exclude the _id of the Follow document
-      .limit(100);
+    try {
+      //serach for followers and populating with appropriate data to be returned
+      const followers = await Follow.find({ following: _id })
+        .populate({
+          path: "follower",
+          select: "_id username",
+        })
+        .select("follower -_id") // Select only the follower field and exclude the _id of the Follow document
+        .limit(100);
 
-    if (!followers || followers.length === 0) throw new NotFoundError();
+      if (!followers || followers.length === 0) throw new NotFoundError();
 
-    //else send the followers array to the client
-    return res.send({ followers: followers });
-  } catch (err) {
-    //will be caught by error handler middleware
-    throw err;
+      //else send the followers array to the client
+      return res.send({ followers: followers });
+    } catch (err) {
+      //will be caught by error handler middleware
+      throw err;
+    }
   }
-});
+);
 
 //<-----------------------------------following----------------------------------------------------------->
 
-followRouter.get("/api/v1/users/following", requireAuth, async (req, res) => {
-  // Find Follow documents where the current user is the follower
+followRouter.get(
+  "/api/v1/users/following",
+  currentUser,
+  requireAuth,
+  async (req, res) => {
+    // Find Follow documents where the current user is the follower
 
-  // Authenticated user
-  const { _id } = req.currentUser;
+    // Authenticated user
+    const { _id } = req.currentUser;
 
-  try {
-    //serach for following and populating with appropriate data to be returned
-    const following = await Follow.find({ follower: _id })
-      .populate({
-        path: "following",
-        select: "_id username",
-      })
-      .select("following -_id")
-      .limit(100);
+    try {
+      //serach for following and populating with appropriate data to be returned
+      const following = await Follow.find({ follower: _id })
+        .populate({
+          path: "following",
+          select: "_id username",
+        })
+        .select("following -_id")
+        .limit(100);
 
-    if (!following || following.length === 0) throw new NotFoundError();
+      if (!following || following.length === 0) throw new NotFoundError();
 
-    // Send the following array to the client
-    return res.send({ following: following });
-  } catch (err) {
-    // Will be caught by error handler middleware
-    throw err;
+      // Send the following array to the client
+      return res.send({ following: following });
+    } catch (err) {
+      // Will be caught by error handler middleware
+      throw err;
+    }
   }
-});
+);
 
 export { followRouter };

@@ -10,13 +10,11 @@ import { followRouter } from "./routes/follow.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./services/swagger-setup.js";
 import { clientControlApp } from "./client-control-app.js";
+import { errorHandler } from "./middlewares/error-handler.js";
 const app = express();
 
 //using secure app, that handles rate limiting, cookie-session initalization and cors
 app.use(clientControlApp);
-
-app.use(currentUser); // currentuser will always be checked against the session cookie
-//but the endpoint access decision will be taken at the routes using requireAuth middelware //using routes
 
 app.use(signupRouter);
 app.use(loginRouter);
@@ -34,5 +32,11 @@ for all http methods
 app.all("*", (req, res) => {
   throw new NotFoundError();
 });
+
+//errors thrown in the app will be caught here
+app.use(errorHandler);
+
+//errors throw by all the above routes will be handled
+app.use(errorHandler);
 
 export { app };

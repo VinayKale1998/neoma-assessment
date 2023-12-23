@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Welcome to our Social Media Platform, a robust and user-friendly Node.js application designed for dynamic social interactions and content management. This application, built with Node.js, Express.js, and MongoDB, offers a comprehensive arrau of features for an engaging social media experience.
+Welcome to our Social Media Platform, a robust and user-friendly Node.js application designed for dynamic social interactions and content management. This application, built with Node.js, Express.js, and MongoDB, offers a comprehensive array of features for an engaging social media experience.
 
-## Sincere apologies for the delayed installation , but it comes at the benefit of not having to worry about secrets, env dependency and key exposure
+## Sincere apologies for the slightly increased installation time, but it comes at the benefit of not having to worry about secrets, env dependency , key exposure and no external db setup or connection URI as we are using an in memory MongoDB server on the fly.
 
 ## Key Features
 
@@ -87,7 +87,7 @@ After installing the application, getting it up and running is just a matter of 
 
 ## API Documentation
 
-Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) for the interactive Swagger documentation of this project. It provides comprehensive info about the endpoints, request and error details.
+Visit [http://localhost:3000/api-docs](http://localhost:3000/api-docs) after successful spawn of the app, for the interactive Swagger documentation of this project. It provides comprehensive info about the endpoints, request and error details.
 
 ## Testing
 

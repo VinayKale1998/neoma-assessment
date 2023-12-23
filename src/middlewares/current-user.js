@@ -18,7 +18,7 @@ export const currentUser = (req, res, next) => {
     const payload = jwt.verify(req.session.jwt, process.env.JWT_SECRET);
     req.currentUser = payload;
   } catch (err) {
-    throw AuthenticationError("Invalid session, kindly re-login");
+    throw new AuthenticationError("Invalid session, kindly re-login");
   }
 
   next();
